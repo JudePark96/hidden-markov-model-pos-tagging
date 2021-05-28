@@ -77,7 +77,7 @@ python3 inference.py
 streamlit run web_inference.py
 ```
 
-![streamlit_infer](C:\Users\default.DESKTOP-IT64657\Desktop\nlp_homework_markdown\streamlit_infer.PNG)
+![streamlit_infer](./streamlit_infer.PNG)
 
 위의 명령어로 실행한 후 URL을 타고 들어가 위와 같이 실행하면 결과가 나옵니다.
 
