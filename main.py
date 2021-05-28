@@ -43,7 +43,8 @@ def main():
 
     transition_prob = load_file('./rsc/probs/transition_prob.pkl')
     emission_prob = load_file('./rsc/probs/emission_prob.pkl')
-    initial_prob = load_file('./rsc/probs/initial_prob.pkl')
+    train_initial_prob = load_file('./rsc/probs/train_initial_prob.pkl')
+    dev_initial_prob = load_file('./rsc/probs/train_initial_prob.pkl')
 
     vocab = load_file('./rsc/vocab/vocab.pkl')
     states = vocab.tags
@@ -56,8 +57,7 @@ def main():
     dev_f1_pred, dev_f1_true = [], []
 
     for obs, label in tqdm(zip(train_obs, train_label), total=len(train_obs)):
-        print(obs)
-        store, l = viterbi_forward(states, transition_prob, emission_prob, initial_prob, obs)
+        store, l = viterbi_forward(states, transition_prob, emission_prob, train_initial_prob, obs)
         best_seq, _ = viterbi_backward(states, store, l)
         train_f1_pred.extend(best_seq)
         train_f1_true.extend(label)
@@ -66,7 +66,7 @@ def main():
     logger.info(classification_report(train_f1_true, train_f1_pred, states))
 
     for obs, label in tqdm(zip(dev_obs, dev_label), total=len(dev_obs)):
-        store, l = viterbi_forward(states, transition_prob, emission_prob, initial_prob, obs)
+        store, l = viterbi_forward(states, transition_prob, emission_prob, dev_initial_prob, obs)
         best_seq, _ = viterbi_backward(states, store, l)
         dev_f1_pred.extend(best_seq)
         dev_f1_true.extend(label)

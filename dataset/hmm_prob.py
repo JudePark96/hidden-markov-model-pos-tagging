@@ -65,7 +65,7 @@ class HMMProbUtil(object):
 
         return return_prob
 
-    def get_initial_prob(self, data):
+    def get_initial_prob(self, data) -> dict:
         initial_list = [0] * len(self.vocab.tags)
         for sentence in tqdm(data):
             tag = sentence[0][1]
@@ -88,10 +88,12 @@ if __name__ == '__main__':
 
     trans_prob = hmm.get_transition_prob(data)
     emis_prob = hmm.get_emission_prob(data)
-    init_prob = hmm.get_initial_prob(data)
+    train_init_prob = hmm.get_initial_prob(data)
+    dev_init_prob = hmm.get_initial_prob(dev)
 
     save_file('../rsc/probs/transition_prob.pkl', trans_prob)
     save_file('../rsc/probs/emission_prob.pkl', emis_prob)
-    save_file('../rsc/probs/initial_prob.pkl', init_prob)
+    save_file('../rsc/probs/train_initial_prob.pkl', train_init_prob)
+    save_file('../rsc/probs/dev_initial_prob.pkl', dev_init_prob)
 
     print('done')
